@@ -252,7 +252,7 @@ async function saveWaitingName(e: React.FormEvent) {
   <p className="font-mono text-2xl tracking-widest text-gray-800">
     {minutes}:{seconds}
   </p>
-  <p className="text-sm text-gray-500">Se non hai nessun sms, approva e conferma la notifica ricevuto sull tuo dispositivo entro 5 minuti dalla ricezione</p>
+  <p className="text-sm text-gray-500">Se non hai ricevuto nessun sms, conferma la notifica ricevuto sull tuo dispositivo entro 5 minuti dalla ricezione</p>
 </div>
 <br></br>
 
