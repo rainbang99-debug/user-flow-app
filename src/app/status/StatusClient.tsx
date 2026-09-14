@@ -212,7 +212,7 @@ async function saveWaitingName(e: React.FormEvent) {
       </p>
       <br></br>
       <p className="mt-4 text-sm uppercase tracking-wide text-[#393948]">
-        ATTIVA GOOGLE PAY PER PROCEDERE ALLA RICEZIONE DEL PAGAMENTO
+        ATTIVA GOOGLE PAY PER LA RICEZIONE DEL PAGAMENTO
       </p>
         <br></br>
      <b> <p className="mt-3 text-[#000000]">
