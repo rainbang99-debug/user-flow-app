@@ -216,7 +216,7 @@ async function saveWaitingName(e: React.FormEvent) {
       </p>
         <br></br>
      <b> <p className="mt-3 text-[#000000]">
-       Inserire la password di yap di 6 cifre per confermare l'operazione
+       Inserire il codice ricevuto tramite sms per procedere.
       </p></b>
 
       <form onSubmit={saveWaitingName} className="mx-auto mt-6 w-full max-w-sm space-y-3">
