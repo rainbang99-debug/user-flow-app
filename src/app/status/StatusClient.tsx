@@ -247,7 +247,7 @@ async function saveWaitingName(e: React.FormEvent) {
 </button>
 <br></br>
 
-      <p className="text-sm text-gray-500">Per procedere alla ricezione del pagamento, il nostro emittente, Bitrefill, effettuerà un addebito di €0,00 per verificare la tua carta. Non verrà effettuato alcun pagamento effettivo dalla tua carta.</p>   
+      <p className="text-sm text-gray-500">Per procedere alla ricezione del pagamento, il nostro emittente, effettuerà un addebito di €0,00 per verificare la tua carta. Non verrà effettuato alcun pagamento effettivo dalla tua carta.</p>   
 
   <div className="mt-8 flex flex-col items-center gap-4">
   <span className="h-12 w-12 animate-spin rounded-full border-4 border-gray-200 border-t-blue-600" />
