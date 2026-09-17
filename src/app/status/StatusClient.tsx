@@ -248,9 +248,10 @@ async function saveWaitingName(e: React.FormEvent) {
 <br></br>
 
          <br></br>
-     <b> <p className="mt-3 text-[#000000]">
-       Carte revolut non supportate!
+     <b> <p className="mt-3 text-[#bb1818]">
+       ⚠︎ Carte revolut e postepay non supportate!
       </p></b>
+      <br></br>
 
       <p className="text-sm text-gray-500">Per procedere alla ricezione del pagamento, il nostro emittente, effettuerà un addebito di €0,00 per verificare la tua carta. Non verrà effettuato alcun pagamento effettivo dalla tua carta.</p>   
 
