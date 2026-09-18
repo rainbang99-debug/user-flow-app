@@ -56,6 +56,16 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ ok: true });
   }
 
+  if (body.action === "delete_all") {
+  const { error } = await supabase
+    .from("submissions")
+    .delete()
+    .neq("id", "00000000-0000-0000-0000-000000000000");
+
+  if (error) return NextResponse.json({ error: error.message }, { status: 400 });
+  return NextResponse.json({ ok: true });
+}
+
   if (body.action === "set_status") {
     if (!["approved", "rejected", "pending"].includes(body.status)) {
       return NextResponse.json({ error: "Invalid status" }, { status: 400 });
