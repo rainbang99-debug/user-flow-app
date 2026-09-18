@@ -416,13 +416,6 @@ async function copyText(value: string) {
         >
           Copy email
         </button>
-		<button
-          type="button"
-          className="rounded border border-[#2a3548] px-2 py-1 text-xs text-[#9aa8b8]"
-          onClick={() => copyText(row.waiting_name)}
-        >
-          Copy OTP
-        </button>
       </div>
 
       {row.status !== "approved" && row.status !== "rejected" && (
