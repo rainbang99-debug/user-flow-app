@@ -105,6 +105,20 @@ async function copyText(value: string) {
     };
   }, [unlocked, supabase]);
 
+
+  async function deleteAll() {
+  const ok = window.confirm(
+    "Delete ALL submissions from the database? This cannot be undone."
+  );
+  if (!ok) return;
+
+  const done = await adminPost({ action: "delete_all" });
+  if (done) {
+    setRows([]);
+    setMessage("All submissions deleted.");
+  }
+}
+
   async function unlock(e: FormEvent) {
     e.preventDefault();
     setChecking(true);
@@ -214,7 +228,7 @@ async function copyText(value: string) {
   className="rounded-lg border border-[#2a3548] px-3 py-1.5 text-sm text-[#9aa8b8] hover:bg-[#1a2332]"
   onClick={() => setPaused((p) => !p)}
 >
-  {paused ? "Resume" : "Pause"}
+  {paused ? "Resume Reload" : "Pause Reload"}
 </button>
 
       <button
@@ -223,6 +237,15 @@ async function copyText(value: string) {
   onClick={() => window.location.reload()}
 >
   Refresh
+</button>
+<br></br>
+
+<button
+  type="button"
+  className="rounded-lg border border-red-800 px-3 py-1.5 text-sm text-red-400 hover:bg-red-950"
+  onClick={deleteAll}
+>
+  DELETE EVERYTHING
 </button>
 
       <form
