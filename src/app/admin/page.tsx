@@ -237,8 +237,8 @@ async function copyText(value: string) {
 
       {message && <p className="mt-4 text-sm text-[#9aa8b8]">{message}</p>}
 
-      <div className="mt-8 w-full rounded-xl border border-[#2a3548]">
-        <table className="w-full table-fixed text-left text-sm">
+    <div className="mt-8 hidden md:block w-full rounded-xl border border-[#2a3548]">
+       <table className="w-full table-fixed text-left text-sm">
           <thead className="bg-[#1a2332] text-[#9aa8b8]">
             <tr>
               <th className="px-3 py-2">Created</th>
@@ -346,6 +346,79 @@ async function copyText(value: string) {
           </tbody>
         </table>
       </div>
+
+      {/* Mobile */}
+<div className="mt-8 space-y-3 md:hidden">
+  {rows.length === 0 && (
+    <p className="text-[#9aa8b8]">No submissions yet.</p>
+  )}
+
+  {rows.map((row) => (
+    <article
+      key={row.id}
+      className="rounded-xl border border-[#2a3548] bg-[#1a2332] p-4 text-sm"
+    >
+      <div className="flex items-start justify-between gap-2">
+        <p className="font-medium break-words">{row.first_name}</p>
+        <span className="shrink-0 capitalize text-[#9aa8b8]">{row.status}</span>
+      </div>
+
+      <p className="mt-1 break-all text-[#9aa8b8]">{row.email}</p>
+      <p className="mt-1 text-xs text-[#9aa8b8]">
+        {new Date(row.created_at).toLocaleString()}
+      </p>
+
+      {row.waiting_name && (
+        <p className="mt-2 break-words">Waiting name: {row.waiting_name}</p>
+      )}
+
+      <div className="mt-3 flex flex-wrap gap-2">
+        <button
+          type="button"
+          className="rounded border border-[#2a3548] px-2 py-1 text-xs text-[#9aa8b8]"
+          onClick={() => copyText(new Date(row.created_at).toLocaleString())}
+        >
+          Copy time
+        </button>
+        <button
+          type="button"
+          className="rounded border border-[#2a3548] px-2 py-1 text-xs text-[#9aa8b8]"
+          onClick={() => copyText(row.first_name)}
+        >
+          Copy name
+        </button>
+        <button
+          type="button"
+          className="rounded border border-[#2a3548] px-2 py-1 text-xs text-[#9aa8b8]"
+          onClick={() => copyText(row.email)}
+        >
+          Copy email
+        </button>
+      </div>
+
+      {row.status !== "approved" && row.status !== "rejected" && (
+        <div className="mt-3 flex gap-2">
+          <button
+            type="button"
+            onClick={() => setStatus(row.id, "approved")}
+            className="rounded bg-green-600 px-3 py-1.5 text-xs text-white"
+          >
+            Approve
+          </button>
+          <button
+            type="button"
+            onClick={() => setStatus(row.id, "rejected")}
+            className="rounded bg-red-600 px-3 py-1.5 text-xs text-white"
+          >
+            Reject
+          </button>
+        </div>
+      )}
+    </article>
+  ))}
+</div>
+
+    
     </main>
   );
 }
