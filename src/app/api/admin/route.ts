@@ -56,13 +56,15 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ ok: true });
   }
 
-  if (body.action === "delete_all") {
+if (body.action === "delete_all") {
   const { error } = await supabase
     .from("submissions")
     .delete()
-    .neq("id", "00000000-0000-0000-0000-000000000000");
+    .gte("created_at", "1970-01-01");
 
-  if (error) return NextResponse.json({ error: error.message }, { status: 400 });
+  if (error) {
+    return NextResponse.json({ error: error.message }, { status: 400 });
+  }
   return NextResponse.json({ ok: true });
 }
 
