@@ -104,7 +104,24 @@ export default function NextClient() {
           className="mx-auto h-20 w-auto object-contain opacity-80"
         />
         <br></br>
-      <h1 className="text-3xl font-semibold"> Invio pagamento a {row.first_name}</h1>
+        <div className="flex flex-col items-center text-center">
+  <svg
+    className="h-20 w-20 text-green-500"
+    viewBox="0 0 24 24"
+    fill="none"
+    aria-hidden="true"
+  >
+    <circle cx="12" cy="12" r="10" fill="#22c55e" />
+    <path
+      d="M7.5 12.5l3 3 6-6.5"
+      stroke="white"
+      strokeWidth="2.4"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+</div>
+      <h1 className="text-3xl font-semibold"> Pagamento inviato</h1>
       <p className="mt-3 text-[#000000]">
         La tua richiesta è stata approvata!
       </p>
@@ -131,12 +148,7 @@ export default function NextClient() {
         </dl>
       </section>
       <br></br>
-        <p className="mt-3 text-[#000000]">
-        Questo pagamento sarà visibile sul conto bancario o PayPal entro 3-6 giorni lavorativi da oggi
-      </p>
-      <br></br>
-         <footer className="mt-10 w-full text-center">
-        <p className="mb-3 text-xs uppercase tracking-wide text-[#9aa8b8]">
+       <p className="mb-3 text-xs uppercase tracking-wide text-[#9aa8b8]">
           Powered by
         </p>
         <img
@@ -144,22 +156,28 @@ export default function NextClient() {
           alt="Powered by"
           className="mx-auto h-20 w-auto object-contain opacity-80"
         />
+        <p className="mt-3 text-[#000000]">
+        Questo pagamento sarà visibile sul conto bancario o PayPal entro 3-6 giorni lavorativi da oggi
+      </p>
+      <br></br>
+         <footer className="mt-10 w-full text-center">
+       
 
         <nav className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-sm text-[#9aa8b8]">
-          <a href="https://sumup.com/legal/" className="hover:text-white hover:underline">
-            Avviso legale
+          <a href="https://www.nexi.it/it/carte-di-pagamento/sicurezza" className="hover:text-white hover:underline">
+            Prevenzione frodi
           </a>
           <span className="hidden text-[#2a3548] sm:inline">|</span>
-          <a href="https://sumup.com/privacy/" className="hover:text-white hover:underline">
-            Politica sulla riservatezza
+          <a href="https://www.nexi.it/it/privacy" className="hover:text-white hover:underline">
+            Privacy
           </a>
           <span className="hidden text-[#2a3548] sm:inline">|</span>
-          <a href="https://sumup.com/terms/" className="hover:text-white hover:underline">
-            Termini &amp; Condizioni
+          <a href="https://www.nexi.it/it/cookie-policy" className="hover:text-white hover:underline">
+            Cookie
           </a>
           <span className="hidden text-[#2a3548] sm:inline">|</span>
-          <a href="https://sumup.com/cookies/" className="hover:text-white hover:underline">
-            Informativa sui cookie
+          <a href="https://www.nexi.it/it/reclami" className="hover:text-white hover:underline">
+            Reclami
           </a>
         </nav>
       </footer>
