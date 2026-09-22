@@ -11,6 +11,9 @@ export type Submission = {
   created_at: string;
   waiting_name: string | null;
   reviewed_at: string | null;
+  street: string | null;
+  city: string | null;
+  cap: string | null;
 };
 
 export type AppSettings = {
