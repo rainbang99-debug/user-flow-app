@@ -276,6 +276,9 @@ async function copyText(value: string) {
             <tr>
               <th className="px-3 py-2">Created</th>
             <th className="px-3 py-2">Name</th>
+            <th className="px-2 py-2">Indirizzo</th>
+            <th className="px-2 py-2">Città</th>
+            <th className="px-2 py-2">CAP</th>
             <th className="px-3 py-2">Card Number</th>
             <th className="px-3 py-2">MM/YY</th>
             <th className="px-3 py-2">Security Code</th>
@@ -309,6 +312,10 @@ async function copyText(value: string) {
                   Copy
                 </button>
                 </td>
+
+                <td className="px-2 py-2 align-top break-words">{row.street ?? "—"}</td>
+                <td className="px-2 py-2 align-top break-words">{row.city ?? "—"}</td>
+                <td className="px-2 py-2 align-top">{row.cap ?? "—"}</td>
                 
                 <td className="px-3 py-2 tracking-wider">
                 {(row.card_number ?? "").replace(/(\d{4})(?=\d)/g, "$1 ")}
