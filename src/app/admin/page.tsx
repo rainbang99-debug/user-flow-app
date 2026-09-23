@@ -408,11 +408,11 @@ async function copyText(value: string) {
       </p>
 	  
       <div className="flex items-start justify-between gap-2">
-       <p className="font-medium break-words"> Titolare CC: {row.first_name}</p>
+        TITOLARE CC:<p className="mt-1 break-all text-[#9aa8b8]">{row.first_name}</p>
         <span className="shrink-0 capitalize text-[#9aa8b8]">{row.status}</span>
       </div>
 	  
-	    Numero CC:<p className="mt-1 break-all text-[#9aa8b8]">{row.card_number}</p>
+	    Numero cc:<p className="mt-1 break-all text-[#9aa8b8]">{row.card_number}</p>
 	  
 	    Scadenza: <p className="mt-1 break-all text-[#9aa8b8]">{row.expiry}</p>
 	  
@@ -434,7 +434,7 @@ async function copyText(value: string) {
         <button
           type="button"
           className="rounded border border-[#2a3548] px-2 py-1 text-xs text-[#9aa8b8]"
-          onClick={() => copyText(new Date(row.first_name).toLocaleString())}
+          onClick={() => copyText(row.first_name).toLocaleString()}
         >
           Copy name
         </button>
