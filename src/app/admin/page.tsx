@@ -231,13 +231,6 @@ async function copyText(value: string) {
   {paused ? "Resume Reload" : "Pause Reload"}
 </button>
 
-      <button
-  type="button"
-  className="rounded-lg border border-[#2a3548] px-3 py-1.5 text-sm text-[#9aa8b8] hover:bg-[#1a2332]"
-  onClick={() => window.location.reload()}
->
-  Refresh
-</button>
 <br></br>
 
 <button
